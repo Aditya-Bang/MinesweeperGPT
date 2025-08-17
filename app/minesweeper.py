@@ -6,18 +6,27 @@ class Minesweeper:
     def __init__(self, size=8, num_mines=10):
         self.size = size
         self.num_mines = num_mines
-        self.board = [['*' for _ in range(size)] for _ in range(size)]  # display board
-        self.hidden_board = [[0 for _ in range(size)] for _ in range(size)]  # actual values
+        self.board = [['*' for _ in range(size)] for _ in range(size)]
+        self.hidden_board = [[0 for _ in range(size)] for _ in range(size)]
         self.revealed = [[False for _ in range(size)] for _ in range(size)]
         self.flags = [[False for _ in range(size)] for _ in range(size)]
-        self._place_mines()
-        self._compute_numbers()
 
-    def _place_mines(self):
+    def _place_mines(self, safe_r, safe_c):
+        """Place mines, ensuring (safe_r, safe_c) and neighbors are safe."""
+        forbidden = set()
+        directions = [(-1,-1), (-1,0), (-1,1),
+                      (0,-1),         (0,1),
+                      (1,-1), (1,0),  (1,1)]
+        forbidden.add((safe_r, safe_c))
+        for dr, dc in directions:
+            nr, nc = safe_r + dr, safe_c + dc
+            if 0 <= nr < self.size and 0 <= nc < self.size:
+                forbidden.add((nr, nc))
+
         mines = 0
         while mines < self.num_mines:
             r, c = random.randint(0, self.size - 1), random.randint(0, self.size - 1)
-            if self.hidden_board[r][c] != "M":
+            if (r, c) not in forbidden and self.hidden_board[r][c] != "M":
                 self.hidden_board[r][c] = "M"
                 mines += 1
 
@@ -49,16 +58,18 @@ class Minesweeper:
             return False
         if self.revealed[r][c]:
             return False
+
         self.revealed[r][c] = True
         val = self.hidden_board[r][c]
         if val == "M":
             self.board[r][c] = "X"
             print("💥 You hit a mine! Game over.")
             return True  # game over
+
         self.board[r][c] = str(val)
         if val == 0:
             self.board[r][c] = "0"
-            # reveal neighbors recursively
+            # recursively reveal neighbors
             directions = [(-1,-1), (-1,0), (-1,1),
                           (0,-1),         (0,1),
                           (1,-1), (1,0),  (1,1)]
@@ -90,8 +101,24 @@ class Minesweeper:
 
 def main():
     game = Minesweeper()
+    # Place mines and compute numbers at start
+    game._place_mines(-1, -1)  # -1, -1 means no forbidden squares
+    game._compute_numbers()
+
+    # Find all 0 squares
+    zero_squares = [(r, c) for r in range(game.size) for c in range(game.size) if game.hidden_board[r][c] == 0]
+    if zero_squares:
+        r0, c0 = random.choice(zero_squares)
+        game.reveal(r0, c0)
+    else:
+        # fallback: reveal a random non-mine square
+        safe_squares = [(r, c) for r in range(game.size) for c in range(game.size) if game.hidden_board[r][c] != "M"]
+        if safe_squares:
+            r0, c0 = random.choice(safe_squares)
+            game.reveal(r0, c0)
+
     game.print_board()
-    
+
     while True:
         move = input("Enter move (reveal/flag) row col (1-8): ").split()
         if len(move) != 3:
