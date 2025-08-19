@@ -1,13 +1,23 @@
-class MinesweeperSolver:
-    def __init__(self, game):
-        self.game = game
+# app/solver.py
+from app.board import Board
 
-    def is_solvable(self):
+
+class MinesweeperSolver:
+    def __init__(self, board: Board):
+        self.board = board
+
+    def is_solvable(self) -> bool:
         """
-        Runs deterministic solving rules until no more progress.
-        Returns True if the board can be fully solved, False otherwise.
+        Placeholder: determine if the board can be solved deterministically.
+        For now, just returns True.
         """
-        # TODO: Implement logic-based solver (basic rules: single-cell inference,
-        # neighbor mine counts, etc.)
-        # For now, just return True so integration works.
+        # TODO: Implement actual solving algorithm
         return True
+
+    def solve(self):
+        """
+        Try to solve the board step by step.
+        For now, just placeholder logic.
+        """
+        # TODO: Implement solving strategy
+        pass
