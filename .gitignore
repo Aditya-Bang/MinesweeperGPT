@@ -12,4 +12,7 @@ wheels/
 uv.lock
 
 # Virtual environments
-.venv
+.venv/
+
+# pytest
+.pytest_cache/
