@@ -1,5 +1,4 @@
 # board.py
-
 import random
 from collections import deque
 
