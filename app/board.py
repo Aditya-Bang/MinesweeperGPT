@@ -61,7 +61,7 @@ class Board:
                 continue  # already revealed
 
             val = self.hidden_board[cr][cc]
-            self.board[cr][cc] = str(val) if val > 0 else " "
+            self.board[cr][cc] = str(val)
 
             if val == 0:
                 for dr in [-1, 0, 1]:
