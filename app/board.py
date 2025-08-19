@@ -3,11 +3,15 @@ import random
 from collections import deque
 
 class Board:
-    def __init__(self, rows: int = 8, cols: int = 8, mines: int = 10):
+    def __init__(self, rows: int = 8, cols: int = 8, mines: int = 10, board_data=None, hidden_data=None):
         self.rows: int = rows
         self.cols: int = cols
         self.mines: int = mines
-        self.reset_board()
+        if board_data and hidden_data:
+            self.board = [row[:] for row in board_data]
+            self.hidden_board = [row[:] for row in hidden_data]
+        else:
+            self.reset_board()
     
     def reset_board(self):
         self.board = [["*" for _ in range(self.cols)] for _ in range(self.rows)]

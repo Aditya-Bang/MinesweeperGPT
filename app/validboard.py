@@ -18,7 +18,7 @@ class ValidBoard:
         """
         while True:
             board = Board(self.rows, self.cols, self.mines)
-            board.generate_random_board(first_click=(r, c))
+            board.generate_random_board()
 
             # Reveal the first clicked cell
             alive = board.reveal(r, c)
@@ -29,8 +29,17 @@ class ValidBoard:
             if board.hidden_board[r][c] != 0:
                 continue
 
+            # copy constructor
+            solver_board = Board(
+                rows=board.rows,
+                cols=board.cols,
+                mines=board.mines,
+                board_data=board.board,
+                hidden_data=board.hidden_board
+            )
+
             # Pass the partially revealed board to solver
-            solver = MinesweeperSolver(board)
+            solver = MinesweeperSolver(solver_board)
             if solver.is_solvable():
                 self.board = board
                 self.first_move_done = True
