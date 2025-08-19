@@ -28,3 +28,5 @@ src/
     datagen/
     finetuning/
 main.py -> give args for either playing minesweeper yourself, running one game of default llm, or improved llm
+
+maybe make small streamlit for demoing llm finetuned
