@@ -77,9 +77,15 @@ class Board:
                                 queue.append((nr, nc))
         return True
 
+    def flag(self, r: int, c: int) -> None:
+        if self.board[r][c] == "*":
+            self.board[r][c] = "F"
+        elif self.board[r][c] == "F":
+            self.board[r][c] = "*"
+
     def check_win(self) -> bool:
-        unrevealed = sum(cell == "*" for row in self.board for cell in row)
-        return unrevealed == self.mines
+        unrevealed_or_flagged = sum(cell in ("*", "F") for row in self.board for cell in row)
+        return unrevealed_or_flagged == self.mines
 
     def print_board(self, reveal_hidden: bool = False):
         board_to_print = self.hidden_board if reveal_hidden else self.board

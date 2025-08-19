@@ -4,7 +4,7 @@ from app.minesweepersolver import MinesweeperSolver
 
 
 class ValidBoard:
-    def __init__(self, rows=8, cols=8, mines=10):
+    def __init__(self, rows=8, cols=8, mines=16):
         self.rows = rows
         self.cols = cols
         self.mines = mines
@@ -51,6 +51,10 @@ class ValidBoard:
         if not self.first_move_done:
             return self.first_move(r, c)
         return self.board.reveal(r, c)
+    
+    def flag(self, r: int, c: int) -> None:
+        if self.board:
+            self.board.flag(r, c)
 
     def check_win(self) -> bool:
         return self.board.check_win() if self.board else False
@@ -59,4 +63,8 @@ class ValidBoard:
         if self.board:
             self.board.print_board(reveal_hidden)
         else:
-            print("Board not initialized yet.")
+            # Print a board of all '*' if not initialized
+            board_to_print = [['*' for _ in range(self.cols)] for _ in range(self.rows)]
+            for row in board_to_print:
+                print(" ".join(str(cell) for cell in row))
+            print()

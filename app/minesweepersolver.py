@@ -48,7 +48,7 @@ class MinesweeperSolver:
                     elif flagged_count + len(hidden_neighbors) == num and hidden_neighbors:
                         for hr, hc in hidden_neighbors:
                             if self.board.board[hr][hc] == "*":
-                                self.board.board[hr][hc] = "F"
+                                self.board.flag(hr, hc)
                                 progress = True
 
             # Board completely solved?
