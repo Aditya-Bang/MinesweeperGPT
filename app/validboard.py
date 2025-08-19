@@ -1,4 +1,4 @@
-# app/game.py
+# app/valid_board.py
 from app.board import Board
 from app.minesweepersolver import MinesweeperSolver
 
@@ -14,18 +14,29 @@ class ValidBoard:
     def first_move(self, r: int, c: int):
         """
         Generate a valid board only after the first move.
-        Ensures first click is safe and solvable.
+        Ensures first click reveals a 0 and that the board is solvable.
         """
         while True:
             board = Board(self.rows, self.cols, self.mines)
             board.generate_random_board(first_click=(r, c))
+
+            # Reveal the first clicked cell
+            alive = board.reveal(r, c)
+            if not alive:
+                continue  # shouldn't happen since we avoid mine on first click
+
+            # Ensure it's a 0
+            if board.hidden_board[r][c] != 0:
+                continue
+
+            # Pass the partially revealed board to solver
             solver = MinesweeperSolver(board)
-            if solver.is_solvable() and board.hidden_board[r][c] == 0:
+            if solver.is_solvable():
                 self.board = board
                 self.first_move_done = True
                 break
 
-        return self.board.reveal(r, c)
+        return True
 
     def reveal(self, r: int, c: int):
         if not self.first_move_done:
