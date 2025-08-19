@@ -74,6 +74,10 @@ class Board:
                                 queue.append((nr, nc))
         return True
 
+    def check_win(self) -> bool:
+        unrevealed = sum(cell == "*" for row in self.board for cell in row)
+        return unrevealed == self.mines
+
     def print_board(self, reveal_hidden=False):
         board_to_print = self.hidden_board if reveal_hidden else self.board
         for row in board_to_print:
