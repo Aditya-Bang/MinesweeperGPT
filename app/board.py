@@ -77,7 +77,7 @@ class Board:
         unrevealed = sum(cell == "*" for row in self.board for cell in row)
         return unrevealed == self.mines
 
-    def print_board(self, reveal_hidden=False):
+    def print_board(self, reveal_hidden: bool = False):
         board_to_print = self.hidden_board if reveal_hidden else self.board
         for row in board_to_print:
             print(" ".join(str(cell) for cell in row))

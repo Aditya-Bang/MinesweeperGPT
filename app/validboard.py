@@ -11,7 +11,7 @@ class ValidBoard:
         self.board = None
         self.first_move_done = False
 
-    def first_move(self, r: int, c: int):
+    def first_move(self, r: int, c: int) -> bool:
         """
         Generate a valid board only after the first move.
         Ensures first click reveals a 0 and that the board is solvable.
@@ -38,12 +38,12 @@ class ValidBoard:
 
         return True
 
-    def reveal(self, r: int, c: int):
+    def reveal(self, r: int, c: int) -> bool:
         if not self.first_move_done:
             return self.first_move(r, c)
         return self.board.reveal(r, c)
 
-    def check_win(self):
+    def check_win(self) -> bool:
         return self.board.check_win() if self.board else False
 
     def print_board(self, reveal_hidden=False):
