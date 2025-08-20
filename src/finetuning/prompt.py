@@ -16,6 +16,10 @@ Moves must be in the format:
 - 'row col'   → to reveal a cell
 - 'row col f' → to flag a cell as a mine
 
+Board representation:
+- '*' means the tile has not been revealed yet.
+- Numbers 0-8 indicate how many mines are adjacent to that square.
+
 Constraints:
 - Row values are integers in the range [1-{TRAINING_ROWS}].
 - Column values are integers in the range [1-{TRAINING_COLS}].
