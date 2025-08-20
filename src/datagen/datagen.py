@@ -4,6 +4,7 @@ from typing import Optional
 from src.minesweeper.validboard import ValidBoard
 from src.minesweeper.minesweepersolver import MinesweeperSolver
 from src.globals import TRAINING_ROWS, TRAINING_COLS, TRAINING_MIN_MINES, TRAINING_MAX_MINES
+from src.utils import get_base_directory
 import random
 import shutil
 
@@ -11,12 +12,12 @@ import shutil
 class DataGenerator:
     def __init__(self, output_dir: str = "data"):
         # Go two levels up from this file
-        self.base_dir = Path(__file__).parent.parent.parent.resolve()
-        self.output_dir = (self.base_dir / output_dir).resolve()
+        self.base_dir: Path = get_base_directory()
+        self.output_dir: Path = (self.base_dir / output_dir).resolve()
         self.output_dir.mkdir(parents=True, exist_ok=True)
         print(f"[INFO] Storing game data in: {self.output_dir}")
 
-        self.game_counter = self._get_next_game_index()
+        self.game_counter: int = self._get_next_game_index()
 
     def _get_next_game_index(self) -> int:
         """
