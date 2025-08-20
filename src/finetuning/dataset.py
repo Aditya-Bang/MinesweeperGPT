@@ -33,7 +33,7 @@ class MinesweeperDataset:
 
                 # Find action: difference between states
                 action = self._extract_action(state, next_state)
-                examples.append({"input": state, "action": action, "hidden_state": hidden_state})
+                examples.append(MinesweeperExample(input=state, action=action, hidden_state=hidden_state))
         random.shuffle(examples)
         return examples
 
