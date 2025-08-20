@@ -1,5 +1,5 @@
-# app/minesweeper.py
-from app.validboard import ValidBoard
+# src/minesweeper/minesweeper.py
+from src.minesweeper.validboard import ValidBoard
 
 
 class Minesweeper:

@@ -1,4 +1,4 @@
-from app.validboard import ValidBoard
+from src.minesweeper.validboard import ValidBoard
 
 vb = ValidBoard(rows=8, cols=8, mines=10)
 first_reveal = vb.reveal(0, 0)

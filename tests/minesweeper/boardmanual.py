@@ -1,4 +1,4 @@
-from app.board import Board
+from src.minesweeper.board import Board
 
 b = Board()
 b.generate_random_board()
