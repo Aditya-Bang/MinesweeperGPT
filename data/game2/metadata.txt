@@ -1,0 +1,5 @@
+rows: 8
+cols: 8
+mines: 15
+start_row: 4
+start_col: 1
