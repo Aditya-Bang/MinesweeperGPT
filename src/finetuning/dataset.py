@@ -7,7 +7,7 @@ import random
 class MinesweeperDataset:
     def __init__(self, data_dir: str = "data"):
         self.base_dir: Path = get_base_directory()
-        self.data_dir = (self.base_dir / data_dir).resolve()
+        self.data_dir: Path = (self.base_dir / data_dir).resolve()
         print(f"Using data directory: {self.data_dir}")
         if not self.data_dir.exists():
             print(f"Data directory does not exist: {self.data_dir}")
