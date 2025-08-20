@@ -1,5 +1,4 @@
 # src/datagen/datagen.py
-import os
 from pathlib import Path
 from typing import Optional
 from src.minesweeper.validboard import ValidBoard
@@ -9,9 +8,13 @@ import shutil
 
 
 class DataGenerator:
-    def __init__(self, output_dir: str = "../../data"):
-        self.output_dir = Path(output_dir)
+    def __init__(self, output_dir: str = "data"):
+        # Go two levels up from this file
+        self.base_dir = Path(__file__).parent.parent.parent.resolve()
+        self.output_dir = (self.base_dir / output_dir).resolve()
         self.output_dir.mkdir(parents=True, exist_ok=True)
+        print(f"[INFO] Storing game data in: {self.output_dir}")
+
         self.game_counter = self._get_next_game_index()
 
     def _get_next_game_index(self) -> int:
@@ -30,11 +33,8 @@ class DataGenerator:
             self._generate_single_game()
 
     def _generate_single_game(self):
-        # Randomize number of mines between 10 and 16
         mines = random.randint(10, 16)
         vb = ValidBoard(rows=8, cols=8, mines=mines)
-
-        # Make first move somewhere safe (center)
         vb.reveal(4, 4)
 
         solver = MinesweeperSolver(vb.board)
@@ -54,8 +54,6 @@ class DataGenerator:
             step_states.append(buf.getvalue())
 
         vb.board.print_board = capture_board
-
-        # Solve the board step by step
         solver.solve(verbose=True)
 
         # Save game folder
@@ -70,16 +68,16 @@ class DataGenerator:
             with open(step_file, "w") as f:
                 f.write(state)
 
-        # Save final hidden board
+        # Save hidden board state
         hidden_file = game_folder / "hidden_state.txt"
         with open(hidden_file, "w") as f:
             for row in vb.board.hidden_board:
                 f.write(" ".join(str(cell) for cell in row) + "\n")
 
         self.game_counter += 1
-        print(f"Saved game {game_folder.resolve()} with {len(step_states)} solver steps.")
+        print(f"[INFO] Saved game {self.game_counter} to: {game_folder.resolve()} with {len(step_states)} solver steps.")
 
 
 if __name__ == "__main__":
     generator = DataGenerator()
-    generator.generate_games(num_games=3)  # generate 3 sample games
+    generator.generate_games(num_games=3)
