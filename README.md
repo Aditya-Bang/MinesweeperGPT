@@ -29,4 +29,7 @@ src/
     finetuning/
 main.py -> give args for either playing minesweeper yourself, running one game of default llm, or improved llm
 
-maybe make small streamlit for demoing llm finetuned
+TODOS:
+1. maybe make small streamlit for demoing llm finetuned
+2. finetuning -> dataset query is a step, solution is hidden state to be used in reward funcs for grpo
+3. make game pure virtual class (only has play method), and person game, llm game sub classes
