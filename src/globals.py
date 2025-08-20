@@ -1,0 +1,5 @@
+# src/globals.py
+TRAINING_ROWS = 8
+TRAINING_COLS = 8
+MIN_MINES = 10
+MAX_MINES = 16
