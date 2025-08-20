@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Optional
 from src.minesweeper.validboard import ValidBoard
 from src.minesweeper.minesweepersolver import MinesweeperSolver
-from src.globals import TRAINING_ROWS, TRAINING_COLS, MIN_MINES, MAX_MINES
+from src.globals import TRAINING_ROWS, TRAINING_COLS, TRAINING_MIN_MINES, TRAINING_MAX_MINES
 import random
 import shutil
 
@@ -34,7 +34,7 @@ class DataGenerator:
             self._generate_single_game()
 
     def _generate_single_game(self):
-        mines = random.randint(MIN_MINES, MAX_MINES)
+        mines = random.randint(TRAINING_MIN_MINES, TRAINING_MAX_MINES)
         vb = ValidBoard(rows=TRAINING_ROWS, cols=TRAINING_COLS, mines=mines)
 
         # Random first move location
