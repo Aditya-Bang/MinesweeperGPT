@@ -1,6 +1,6 @@
-# app/valid_board.py
-from app.board import Board
-from app.minesweepersolver import MinesweeperSolver
+# src/minesweeper/valid_board.py
+from src.minesweeper.board import Board
+from src.minesweeper.minesweepersolver import MinesweeperSolver
 
 
 class ValidBoard:

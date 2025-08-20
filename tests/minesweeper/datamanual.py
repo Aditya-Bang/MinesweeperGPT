@@ -1,6 +1,6 @@
-# tests/datamanual.py
-from app.validboard import ValidBoard
-from app.minesweepersolver import MinesweeperSolver
+# tests/minesweeper/datamanual.py
+from src.minesweeper.validboard import ValidBoard
+from src.minesweeper.minesweepersolver import MinesweeperSolver
 
 
 vb = ValidBoard(rows=8, cols=8, mines=12)

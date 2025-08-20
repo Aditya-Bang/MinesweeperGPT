@@ -1,7 +1,7 @@
-# app/solver.py
+# src/minesweeper/solver.py
 from __future__ import annotations
 from typing import List, Tuple
-from app.board import Board
+from src.minesweeper.board import Board
 
 
 class MinesweeperSolver:

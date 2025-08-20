@@ -1,6 +1,6 @@
-# tests/test_valid_board.py
+# tests/minesweeper/validboard.py
 import pytest
-from app.validboard import ValidBoard
+from src.minesweeper.validboard import ValidBoard
 
 
 def test_first_move_reveals_zero_and_board_is_solvable():
@@ -19,7 +19,7 @@ def test_first_move_reveals_zero_and_board_is_solvable():
     assert first_reveal is True, "First move should not hit a mine"
 
     # Board should be solvable (solver should confirm)
-    from app.minesweepersolver import MinesweeperSolver
+    from src.minesweeper.minesweepersolver import MinesweeperSolver
     solver = MinesweeperSolver(vb.board)
     assert solver.is_solvable() is True, "Board should be solvable deterministically"
 

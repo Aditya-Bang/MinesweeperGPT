@@ -1,4 +1,4 @@
-from app.minesweeper import Minesweeper
+from src.minesweeper.minesweeper import Minesweeper
 
 def main():
     game = Minesweeper()
