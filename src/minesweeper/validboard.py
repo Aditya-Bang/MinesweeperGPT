@@ -2,6 +2,7 @@
 from src.minesweeper.board import Board
 from src.minesweeper.minesweepersolver import MinesweeperSolver
 
+# MAX_BOARD_CREATION_ATTEMPTS = 10000
 
 class ValidBoard:
     def __init__(self, rows=8, cols=8, mines=16):
@@ -18,6 +19,7 @@ class ValidBoard:
         Generate a valid board only after the first move.
         Ensures first click reveals a 0 and that the board is solvable.
         """
+        # for _ in range(MAX_BOARD_CREATION_ATTEMPTS):
         while True:
             board = Board(self.rows, self.cols, self.mines)
             board.generate_random_board()
@@ -46,6 +48,8 @@ class ValidBoard:
                 self.board = board
                 self.first_move_done = True
                 break
+        # else:
+        #     raise RuntimeError(f"Failed to generate a valid board after {MAX_BOARD_CREATION_ATTEMPTS} attempts.")
 
         return True
 
