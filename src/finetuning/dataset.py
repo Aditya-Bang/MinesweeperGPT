@@ -1,6 +1,8 @@
 # src/finetuning/dataset.py
 from pathlib import Path
 from src.utils import get_base_directory
+from src.models import MinesweeperExample
+from typing import List
 import random
 
 
@@ -19,8 +21,8 @@ class MinesweeperDataset:
         else:
             print(f"Found {len(self.games)} game directories in {self.data_dir}")
 
-    def load_examples(self):
-        examples = []
+    def load_examples(self) -> List[MinesweeperExample]:
+        examples: List[MinesweeperExample] = []
         for game in self.games:
             step_files = sorted(game.glob("step*.txt"), key=lambda p: int(p.stem[4:]))
             hidden_state = (game / "hidden_state.txt").read_text().splitlines()
@@ -31,14 +33,15 @@ class MinesweeperDataset:
 
                 # Find action: difference between states
                 action = self._extract_action(state, next_state)
-                examples.append({"input": state, "output": action})
+                examples.append({"input": state, "action": action, "hidden_state": hidden_state})
+        random.shuffle(examples)
         return examples
 
-    def _extract_action(self, prev_state: str, next_state: str) -> str | None:
+    def _extract_action(self, prev_state: str, next_state: str) -> str:
         prev_lines = prev_state.splitlines()
         next_lines = next_state.splitlines()
         for r, (pl, nl) in enumerate(zip(prev_lines, next_lines)):
             for c, (pc, nc) in enumerate(zip(pl, nl)):
                 if pc != nc:
                     return f"{r} {c}" if nc != "F" else f"{r} {c} f"
-        return None
+        raise ValueError("No difference found between states; every state transition must have a difference.")
