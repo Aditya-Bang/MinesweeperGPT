@@ -31,7 +31,7 @@ class MinesweeperSolver:
                     cell = self.board.board[r][c]
 
                     # Skip unrevealed, empty, flagged, or mines
-                    if cell in ("*", " ", "M", "F"):
+                    if cell in ("*", "0", "M", "F"):
                         continue
 
                     num = int(cell)
