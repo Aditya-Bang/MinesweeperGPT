@@ -15,7 +15,7 @@ class MinesweeperSolver:
         """
         return self.solve()
 
-    def solve(self) -> bool:
+    def solve(self, verbose: bool = False) -> bool:
         """
         Deterministically solve the board step by step:
         - Reveals safe squares
@@ -42,6 +42,7 @@ class MinesweeperSolver:
                         for hr, hc in hidden_neighbors:
                             if self.board.board[hr][hc] == "*":
                                 self.board.reveal(hr, hc)
+                                if (verbose): self.board.print_board()
                                 progress = True
 
                     # Rule 2: all hidden neighbors are mines
@@ -49,6 +50,7 @@ class MinesweeperSolver:
                         for hr, hc in hidden_neighbors:
                             if self.board.board[hr][hc] == "*":
                                 self.board.flag(hr, hc)
+                                if (verbose): self.board.print_board()
                                 progress = True
 
             # Board completely solved?
