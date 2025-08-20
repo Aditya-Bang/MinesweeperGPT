@@ -4,6 +4,8 @@ from collections import deque
 
 class Board:
     def __init__(self, rows: int = 8, cols: int = 8, mines: int = 10, board_data=None, hidden_data=None):
+        if mines >= rows * cols:
+            raise ValueError("Number of mines must be less than total board spaces to allow at least one empty square.")
         self.rows: int = rows
         self.cols: int = cols
         self.mines: int = mines

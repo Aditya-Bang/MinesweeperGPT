@@ -5,6 +5,8 @@ from src.minesweeper.minesweepersolver import MinesweeperSolver
 
 class ValidBoard:
     def __init__(self, rows=8, cols=8, mines=16):
+        if mines >= rows * cols:
+            raise ValueError("Number of mines must be less than total board spaces to allow at least one empty square.")
         self.rows = rows
         self.cols = cols
         self.mines = mines
