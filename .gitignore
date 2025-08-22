@@ -16,3 +16,6 @@ uv.lock
 
 # pytest
 .pytest_cache/
+
+# unsloth
+unsloth_compiled_cache/
