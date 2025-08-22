@@ -4,7 +4,7 @@
 export PYTHONPATH=.
 uv venv
 source .venv/bin/activate # .venv\Scripts\activate on windows cmd
-uv sync
+uv pip install pytest unsloth vllm --torch-backend=auto
 python main.py
 ```
 
