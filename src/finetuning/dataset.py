@@ -29,19 +29,19 @@ class MinesweeperDataset:
 
             for i in range(len(step_files) - 1):
                 state = step_files[i].read_text()
-                next_state = step_files[i+1].read_text()
+                # next_state = step_files[i+1].read_text()
 
-                # Find action: difference between states
-                action = self._extract_action(state, next_state)
-                examples.append(MinesweeperExample(input=state, action=action, hidden_state=hidden_state))
+                # Find action: difference between states (TODO: store all possible valid actions)
+                # action = self._extract_action(state, next_state)
+                examples.append(MinesweeperExample(input=state, hidden_state=hidden_state))
         random.shuffle(examples)
         return examples
 
-    def _extract_action(self, prev_state: str, next_state: str) -> str:
-        prev_lines = prev_state.splitlines()
-        next_lines = next_state.splitlines()
-        for r, (pl, nl) in enumerate(zip(prev_lines, next_lines)):
-            for c, (pc, nc) in enumerate(zip(pl, nl)):
-                if pc != nc:
-                    return f"{r} {c}" if nc != "F" else f"{r} {c} f"
-        raise ValueError("No difference found between states; every state transition must have a difference.")
+    # def _extract_action(self, prev_state: str, next_state: str) -> str:
+    #     prev_lines = prev_state.splitlines()
+    #     next_lines = next_state.splitlines()
+    #     for r, (pl, nl) in enumerate(zip(prev_lines, next_lines)):
+    #         for c, (pc, nc) in enumerate(zip(pl, nl)):
+    #             if pc != nc:
+    #                 return f"{r} {c}" if nc != "F" else f"{r} {c} f"
+    #     raise ValueError("No difference found between states; every state transition must have a difference.")
