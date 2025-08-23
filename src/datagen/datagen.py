@@ -86,8 +86,8 @@ class DataGenerator:
             f.write(f"rows: {vb.rows}\n")
             f.write(f"cols: {vb.cols}\n")
             f.write(f"mines: {vb.mines}\n")
-            f.write(f"start_row: {first_r}\n")
-            f.write(f"start_col: {first_c}\n")
+            f.write(f"start_row: {first_r+1}\n")
+            f.write(f"start_col: {first_c+1}\n")
 
         self.game_counter += 1
         print(f"[INFO] Saved game {self.game_counter} to: {game_folder.resolve()} with {len(step_states)} solver steps.")
