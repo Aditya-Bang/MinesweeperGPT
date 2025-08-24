@@ -95,4 +95,4 @@ class DataGenerator:
 
 if __name__ == "__main__":
     generator = DataGenerator()
-    generator.generate_games(num_games=3)
+    generator.generate_games(num_games=10)
