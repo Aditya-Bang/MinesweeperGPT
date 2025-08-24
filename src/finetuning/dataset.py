@@ -1,12 +1,15 @@
 # src/finetuning/dataset.py
 from pathlib import Path
-from src.utils import get_base_directory
-from src.models import MinesweeperExample
-from typing import List
+from typing import List, Dict, Any
 import random
 
+from src.utils import get_base_directory
+from src.models import MinesweeperExample
+from src.finetuning.prompt import format_example
+from datasets import Dataset
 
-class MinesweeperDataset:
+
+class MinesweeperDatasetLoader:
     def __init__(self, data_dir: str = "data"):
         self.base_dir: Path = get_base_directory()
         self.data_dir: Path = (self.base_dir / data_dir).resolve()
@@ -45,3 +48,20 @@ class MinesweeperDataset:
     #             if pc != nc:
     #                 return f"{r} {c}" if nc != "F" else f"{r} {c} f"
     #     raise ValueError("No difference found between states; every state transition must have a difference.")
+
+    def to_hf_dataset(self) -> Dataset:
+        """
+        Convert Minesweeper examples to a Hugging Face Dataset object
+        suitable for GRPO training.
+        """
+        examples: List[MinesweeperExample] = self.load_examples()
+
+        hf_data: List[Dict[str, Any]] = [
+            {
+                **format_example(ex),
+                "hidden_state": ex.hidden_state,
+            }
+            for ex in examples
+        ]
+
+        return Dataset.from_list(hf_data)
