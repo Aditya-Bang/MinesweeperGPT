@@ -31,12 +31,13 @@ class MinesweeperDatasetLoader:
             hidden_state = (game / "hidden_state.txt").read_text().splitlines()
 
             for i in range(len(step_files) - 1):
-                state = step_files[i].read_text()
+                state_str = step_files[i].read_text()
+                board_state: List[str] = state_str.splitlines()
                 # next_state = step_files[i+1].read_text()
 
                 # Find action: difference between states (TODO: store all possible valid actions)
                 # action = self._extract_action(state, next_state)
-                examples.append(MinesweeperExample(input=state, hidden_state=hidden_state))
+                examples.append(MinesweeperExample(input=state_str, board_state=board_state, hidden_state=hidden_state))
         random.shuffle(examples)
         return examples
 
@@ -59,6 +60,7 @@ class MinesweeperDatasetLoader:
         hf_data: List[Dict[str, Any]] = [
             {
                 **format_example(ex),
+                "board_state": ex.board_state,
                 "hidden_state": ex.hidden_state,
             }
             for ex in examples
