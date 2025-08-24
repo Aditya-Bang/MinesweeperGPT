@@ -45,7 +45,7 @@ def reward_format_correct(completions: List[List[Dict[str, str]]], **kwargs) -> 
     return [1.0 if is_output_valid(response) else 0.0 for response in responses]
 
 
-def reward_valid_cell(completions: List[List[Dict[str, str]]], board_state: List[List[str]], **kwargs) -> List[float]:
+def reward_valid_cell(completions: List[List[Dict[str, str]]], board_state: List[List[List[str]]], **kwargs) -> List[float]:
     """
     Reward 2: Reward if the move targets an unrevealed cell ('*').
     board: List of strings representing the current board state.
@@ -70,8 +70,8 @@ def reward_valid_cell(completions: List[List[Dict[str, str]]], board_state: List
 def reward_correct_move(
         prompts: List[List[Dict[str, str]]],
         completions: List[List[Dict[str, str]]],
-        board_state: List[List[str]],
-        hidden_state: List[List[str]],
+        board_state: list[List[List[str]]],
+        hidden_state: List[List[List[str]]],
         **kwargs
     ) -> List:
     """

@@ -28,11 +28,11 @@ class MinesweeperDatasetLoader:
         examples: List[MinesweeperExample] = []
         for game in self.games:
             step_files = sorted(game.glob("step*.txt"), key=lambda p: int(p.stem[4:]))
-            hidden_state = (game / "hidden_state.txt").read_text().splitlines()
+            hidden_state: List[List[str]] = [line.split() for line in (game / "hidden_state.txt").read_text().splitlines()]
 
             for i in range(len(step_files) - 1):
                 state_str = step_files[i].read_text()
-                board_state: List[str] = state_str.splitlines()
+                board_state: List[List[str]] = [line.split() for line in state_str.splitlines()]
                 # next_state = step_files[i+1].read_text()
 
                 # Find action: difference between states (TODO: store all possible valid actions)
