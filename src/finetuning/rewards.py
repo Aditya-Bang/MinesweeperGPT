@@ -40,7 +40,7 @@ def reward_format_correct(completions: List[List[Dict[str, str]]], **kwargs) -> 
     return [1.0 if is_output_valid(response) else 0.0 for response in responses]
 
 
-def reward_valid_cell(completions: List[List[Dict[str, str]]], hidden_state: List[List[str]]) -> List[float]:
+def reward_valid_cell(completions: List[List[Dict[str, str]]], hidden_state: List[List[str]], **kwargs) -> List[float]:
     """
     Reward 2: Reward if the move targets an unrevealed cell ('*').
     board: List of strings representing the current board state.
@@ -62,7 +62,7 @@ def reward_valid_cell(completions: List[List[Dict[str, str]]], hidden_state: Lis
     return scores
 
 
-def reward_correct_move(completions: List[List[Dict[str, str]]], hidden_state: List[List[str]]) -> List:
+def reward_correct_move(completions: List[List[Dict[str, str]]], hidden_state: List[List[str]], **kwargs) -> List:
     """
     Reward 3: Reward if the move reveals an empty square (0) or flags a mine correctly.
     hidden_state: List of strings representing the ground truth board with mines.

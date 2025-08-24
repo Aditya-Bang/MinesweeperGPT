@@ -30,7 +30,7 @@ Summary:
 
 def format_example(example: MinesweeperExample) -> dict:
     return {
-        "messages": [
+        "prompt": [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": example.input},
         ]
