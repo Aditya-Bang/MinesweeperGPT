@@ -27,11 +27,11 @@
   "target_modules": [
     "down_proj",
     "gate_proj",
-    "o_proj",
-    "q_proj",
     "v_proj",
+    "q_proj",
+    "k_proj",
     "up_proj",
-    "k_proj"
+    "o_proj"
   ],
   "target_parameters": null,
   "task_type": "CAUSAL_LM",
