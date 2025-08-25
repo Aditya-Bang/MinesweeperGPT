@@ -1,5 +1,0 @@
-rows: 5
-cols: 5
-mines: 7
-start_row: 4
-start_col: 4
