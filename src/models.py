@@ -6,3 +6,9 @@ class MinesweeperExample:
     input: str
     board_state: List[List[str]]
     hidden_state: List[List[str]]
+
+@dataclass
+class Move:
+    row: int
+    col: int
+    action: str
