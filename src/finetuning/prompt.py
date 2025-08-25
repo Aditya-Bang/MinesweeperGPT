@@ -28,10 +28,16 @@ Summary:
 - Do NOT explain your reasoning or thought process. Only output the valid move.
 """
 
+def add_row_numbers(board_str: str) -> str:
+    lines = board_str.splitlines()
+    numbered_lines = [f"Row {i}: {line}" for i, line in enumerate(lines, start=1) if line.strip()]
+    return "\n".join(numbered_lines)
+
 def format_example(example: MinesweeperExample) -> dict:
+    formatted_board = add_row_numbers(example.input)
     return {
         "prompt": [
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": example.input},
+            {"role": "user", "content": formatted_board},
         ]
     }
