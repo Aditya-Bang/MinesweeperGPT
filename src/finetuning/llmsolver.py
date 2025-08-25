@@ -16,6 +16,7 @@ class LLMSolver:
 
     def get_llm_move(self) -> str:
         # Implement the logic to get a single move from the LLM
+        messages: dict = format_example(self.board.get_board_string())
         return f"Get single move using {self.model_name}"
     
     def parse_llm_move(self, llm_move: str) -> Move:
