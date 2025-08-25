@@ -10,7 +10,7 @@ import shutil
 
 
 class DataGenerator:
-    def __init__(self, output_dir: str = "data"):
+    def __init__(self, output_dir: str = "data/train"):
         # Go two levels up from this file
         self.base_dir: Path = get_base_directory()
         self.output_dir: Path = (self.base_dir / output_dir).resolve()
