@@ -65,12 +65,13 @@ class ValidBoard:
     def check_win(self) -> bool:
         return self.board.check_win() if self.board else False
 
-    def print_board(self, reveal_hidden=False):
+    def get_board_string(self, reveal_hidden: bool = False) -> str:
         if self.board:
-            self.board.print_board(reveal_hidden)
+            return self.board.get_board_string(reveal_hidden)
         else:
-            # Print a board of all '*' if not initialized
             board_to_print = [['*' for _ in range(self.cols)] for _ in range(self.rows)]
-            for row in board_to_print:
-                print(" ".join(str(cell) for cell in row))
-            print()
+            return "\n".join(" ".join(cell for cell in row) for row in board_to_print)
+
+    def print_board(self, reveal_hidden: bool = False) -> None:
+        print(self.get_board_string(reveal_hidden))
+        print()
