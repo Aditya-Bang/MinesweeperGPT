@@ -10,7 +10,7 @@ from datasets import Dataset
 
 
 class MinesweeperDatasetLoader:
-    def __init__(self, data_dir: str = "data"):
+    def __init__(self, data_dir: str = "data/train"):
         self.base_dir: Path = get_base_directory()
         self.data_dir: Path = (self.base_dir / data_dir).resolve()
         print(f"Using data directory: {self.data_dir}")
