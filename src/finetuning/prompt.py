@@ -33,8 +33,8 @@ def add_row_numbers(board_str: str) -> str:
     numbered_lines = [f"Row {i}: {line}" for i, line in enumerate(lines, start=1) if line.strip()]
     return "\n".join(numbered_lines)
 
-def format_example(example: MinesweeperExample) -> dict:
-    formatted_board = add_row_numbers(example.input)
+def format_example(board: str) -> dict:
+    formatted_board = add_row_numbers(board)
     return {
         "prompt": [
             {"role": "system", "content": SYSTEM_PROMPT},
