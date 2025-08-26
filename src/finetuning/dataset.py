@@ -63,7 +63,7 @@ class MinesweeperDatasetLoader:
 
         hf_data: List[Dict[str, Any]] = [
             {
-                **format_example(ex.input),
+                "prompt": format_example(ex.input),
                 "board_state": ex.board_state,
                 "hidden_state": ex.hidden_state,
             }

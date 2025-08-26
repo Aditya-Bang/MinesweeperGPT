@@ -1,6 +1,7 @@
 # src/finetuning/prompt.py
 from src.globals import TRAINING_ROWS, TRAINING_COLS
 from src.models import MinesweeperExample
+from typing import List, Dict
 
 
 SYSTEM_PROMPT = f"""You are a Minesweeper assistant.
@@ -33,11 +34,9 @@ def add_row_numbers(board_str: str) -> str:
     numbered_lines = [f"Row {i}: {line}" for i, line in enumerate(lines, start=1) if line.strip()]
     return "\n".join(numbered_lines)
 
-def format_example(board: str) -> dict:
+def format_example(board: str) -> List[Dict[str, str]]:
     formatted_board = add_row_numbers(board)
-    return {
-        "prompt": [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": formatted_board},
-        ]
-    }
+    return [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": formatted_board},
+    ]
