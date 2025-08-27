@@ -2,4 +2,4 @@ rows: 5
 cols: 5
 mines: 5
 start_row: 3
-start_col: 3
+start_col: 2

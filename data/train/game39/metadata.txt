@@ -1,5 +1,5 @@
 rows: 5
 cols: 5
 mines: 7
-start_row: 3
-start_col: 2
+start_row: 1
+start_col: 4
