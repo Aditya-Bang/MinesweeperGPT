@@ -5,8 +5,7 @@ MinesweeperGPT is a research project focused on teaching the Qwen 4B large langu
 ## Features
 
 - **LLM Minesweeper Solver:** Integrates Qwen 4B as the core model for learning Minesweeper strategies.
-- **GRPO Finetuning:** Utilizes GRPO for reinforcement learning-based policy optimization.
-- **QLoRA Integration:** Efficient parameter-efficient finetuning with QLoRA adapters.
+- **GRPO Finetuning with QLoRA:** Combines Generalized Reinforcement Policy Optimization (GRPO) and QLoRA adapters for efficient, reinforcement learning-based policy optimization.
 - **Custom Data Generation:** Scripts for generating Minesweeper game data for training and testing.
 - **Evaluation Tools:** Utilities for benchmarking model performance on unseen Minesweeper boards.
 
