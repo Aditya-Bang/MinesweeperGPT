@@ -8,6 +8,7 @@ MinesweeperGPT is a research project focused on teaching the Qwen 4B large langu
 * **GRPO Finetuning with QLoRA:** Combines Generalized Reinforcement Policy Optimization (GRPO) and QLoRA adapters for efficient, reinforcement learning-based policy optimization.
 * **Custom Data Generation:** Scripts for generating Minesweeper game data for training and testing.
 * **Evaluation Tools:** Utilities for benchmarking model performance on unseen Minesweeper boards.
+* **Performance Improvement**: LLM move accuracy improved by 13.7% after finetuning.
 
 ## Project Structure
 
