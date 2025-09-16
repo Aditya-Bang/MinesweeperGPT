@@ -83,6 +83,13 @@ model = FastLanguageModel.get_peft_model(
 
 from huggingface_hub import snapshot_download
 from src.finetuning.llmtester import LLMTester
+from src.finetuning.dataset import MinesweeperDatasetLoader
+
+train_dataset_loader = MinesweeperDatasetLoader(data_dir="train-data")
+train_dataset: Dataset = train_dataset_loader.to_hf_dataset()
+
+test_dataset_loader = MinesweeperDatasetLoader(data_dir="test-data")
+test_dataset: Dataset = test_dataset_loader.to_hf_dataset()
 
 # Download the LoRA from Hugging Face
 local_dir = snapshot_download("adi-256/minesweepergpt")
