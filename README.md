@@ -4,11 +4,16 @@ MinesweeperGPT is a research project focused on teaching the Qwen 4B large langu
 
 ## Features
 
-* **LLM Minesweeper Solver:** Integrates Qwen 4B as the core model for learning Minesweeper strategies.
-* **GRPO Finetuning with QLoRA:** Combines Generalized Reinforcement Policy Optimization (GRPO) and QLoRA adapters for efficient, reinforcement learning-based policy optimization.
-* **Custom Data Generation:** Scripts for generating Minesweeper game data for training and testing.
-* **Evaluation Tools:** Utilities for benchmarking model performance on unseen Minesweeper boards.
-* **Performance Improvement**: LLM move accuracy improved by 13.7% after finetuning.
+* **LLM Minesweeper Solver:** Uses Qwen 4B as the base model for solving Minesweeper.  
+* **GRPO Finetuning with QLoRA:** Combines Generalized Reinforcement Policy Optimization (GRPO) and QLoRA for efficient finetuning of the base model. LoRA adapters are available for download on Hugging Face: [MinesweeperGPT](https://huggingface.co/adi-256/minesweepergpt/tree/main)  
+* **Custom Data Generation:** Scripts for generating Minesweeper game data for training and testing.  
+* **Evaluation Tools:** Utilities for benchmarking model performance on unseen Minesweeper boards.  
+* **Performance Improvement:** LLM move accuracy improved by 13.7% after finetuning.  
+
+## Download
+
+You can download the finetuned LoRA adapters from Hugging Face here: [Download Link](https://huggingface.co/adi-256/minesweepergpt/tree/main)
+
 
 ## Project Structure
 
