@@ -43,13 +43,62 @@ Requires CUDA 12.4+ and Linux for the vLLM backend and finetuning, with at least
 3. **Finetune Qwen 4B**
     - Run GRPO finetuning with QLoRA adapters using notebooks in `src/finetuning/`.
 
+Here is a sample rewards graph using Wandb for finetuning:
+
+images/rewards_finetuning_chart.png
+
 4. **Evaluate the Model**
-    - Use evaluation scripts to test the trained model on new Minesweeper boards.
+    - Use evaluation notebooks in `tests/finetuning/` to test the trained model on new Minesweeper boards.
+
+Using my trained model locally:
+```python
+max_seq_length = 512  # Can increase for longer reasoning traces
+lora_rank = 32         # Larger rank = smarter, but slower
+
+# Load model + tokenizer with vLLM acceleration
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name = "unsloth/Qwen3-4B",
+    max_seq_length = max_seq_length,
+    load_in_4bit = True,       # False for LoRA 16bit
+    fast_inference = True,      # Enable vLLM fast inference
+    max_lora_rank = lora_rank,
+    gpu_memory_utilization = 0.45, # Reduce if out of memory
+)
+
+model = FastLanguageModel.get_peft_model(
+    model,
+    r=lora_rank,  # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
+    target_modules=[
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj",
+    ],  # Remove QKVO if out of memory
+    lora_alpha=lora_rank*2,
+    use_gradient_checkpointing="unsloth",  # Enable long context finetuning
+    random_state=3407,
+)
+
+from huggingface_hub import snapshot_download
+
+# Download the repo contents into a local folder
+local_dir = snapshot_download("adi-256/minesweepergpt")
+print(local_dir)
+
+# Now load from local path
+lora_request = model.load_lora(local_dir)
+
+llm_tester = LLMTester(model, tokenizer, test_dataset.select(range(100)), lora_request=lora_request)
+llm_tester.test_llm(verbose=False)
+```
 
 ## Key Files
 
-- `src/finetuning/llmsolver.py`: LLM-based Minesweeper solver logic.
 - `src/finetuning/MinesweeperGPT.ipynb`: Main script for GRPO finetuning with QLoRA.
+- `tests/finetuning/MinesweeperGPT_test.ipynb`: Main evaluation script for testing finetuned model against base model.
 - `src/datagen/datagen.py`: Data generation for Minesweeper games.
 
 ## Citation
